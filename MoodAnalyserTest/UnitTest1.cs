@@ -9,6 +9,7 @@ namespace MoodAnalyserTest
         [TestMethod]
         public void MoodAnalyserTestForSad()
         {
+            //TC 1.1
             string message = "I am in Sad Mood";
             MoodAnalyse moodAnalyse = new MoodAnalyse(message);
             string result = moodAnalyse.AnalyseMood();
@@ -18,7 +19,8 @@ namespace MoodAnalyserTest
         [TestMethod]
         public void MoodAnalyserTestForHappy()
         {
-            string message = "I am in Happy Mood";
+            //TC 2.1
+            string message = null;
             MoodAnalyse moodAnalyse = new MoodAnalyse(message);
             string result = moodAnalyse.AnalyseMood();
             Assert.AreEqual(result, "HAPPY");
