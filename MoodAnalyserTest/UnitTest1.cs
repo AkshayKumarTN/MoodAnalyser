@@ -125,7 +125,7 @@ namespace MoodAnalyserTest
             string constructorName = "MoodAnalyse";
             MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
             
-            object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName);
+            object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName, "happy");
             
             expectedObj.Equals(resultObj);
         }
@@ -139,7 +139,7 @@ namespace MoodAnalyserTest
                 string className = "WrongNameSpace.MoodAnalyser";
                 string constructorName = "MoodAnalyser";
                 MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
-                object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName);
+                object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName, "happy");
             }
             catch (MoodAnalysisException e)
             {
@@ -155,11 +155,38 @@ namespace MoodAnalyserTest
                 string className = "MoodAnalyser.MoodAnalyse";
                 string constructorName = "WrongConstructorName";
                 MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
-                object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName);
+                object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName,"happy");
             }
             catch (MoodAnalysisException e)
             {
                 Assert.AreEqual("constructor not found", e.Message);
+            }
+        }
+
+        //********************************************************************************************
+
+        [TestMethod]
+        public void InvokeAnalyseMoodReturnsHappy()
+        {
+            // TC 6.1
+            string message = "HAPPY";
+            string methodName = "AnalyseMood";
+            string actual = MoodAnalyserFactory.InvokeAnalyseMood(message, methodName);
+            Assert.AreEqual("HAPPY", actual);
+        }
+        [TestMethod]
+        public void InvokeAnalyseMoodReturnsNoSuchMethod()
+        {
+            try
+            {
+                // TC 6.2
+                string message = "HAPPY";
+                string methodName = "WrongMethodName";
+                string actual = MoodAnalyserFactory.InvokeAnalyseMood(message, methodName);
+            }
+            catch (MoodAnalysisException e)
+            {
+                Assert.AreEqual("no such method", e.Message);
             }
         }
     }
