@@ -19,7 +19,7 @@ namespace MoodAnalyser
         {
             try
             {
-                if (this.moodMessage.Equals(""))
+                if (this.moodMessage.Equals(string.Empty))
                     throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.EMPTY_MESSAGE, "Message should not be Empty");
                 if (moodMessage.ToLower().Contains("sad"))
                     return "SAD";

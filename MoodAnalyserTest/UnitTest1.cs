@@ -16,6 +16,9 @@ namespace MoodAnalyserTest
             Assert.AreEqual(result, "SAD");
         }
 
+        //********************************************************************************************
+
+
         [TestMethod]
         public void MoodAnalyserTestForHappy()
         {
@@ -25,6 +28,9 @@ namespace MoodAnalyserTest
             string result = moodAnalyse.AnalyseMood();
             Assert.AreEqual(result, "HAPPY");
         }
+
+        //********************************************************************************************
+
 
         [TestMethod]
         public void MoodAnalyserTestReturnsCustomNullException()
@@ -58,6 +64,9 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("Message should not be Empty", ex.Message);
             }
         }
+
+        //********************************************************************************************
+
 
         [TestMethod]
         public void MoodAnalyserFactoryTestReturnsMoodAnalyserObject()
@@ -102,6 +111,54 @@ namespace MoodAnalyserTest
             catch (MoodAnalysisException e)
             {
                 //Assert
+                Assert.AreEqual("constructor not found", e.Message);
+            }
+        }
+
+        //********************************************************************************************
+
+        [TestMethod]
+        public void MoodAnalyserFactoryTestReturnsObjectUsingParametrizedConstructor()
+        {
+            // TC 5.1
+            string className = "MoodAnalyser.MoodAnalyse";
+            string constructorName = "MoodAnalyse";
+            MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
+            
+            object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName);
+            
+            expectedObj.Equals(resultObj);
+        }
+
+        [TestMethod]
+        public void voidMoodAnalyserFactoryTestReturnsClassNotFoundForParameterizedConstructor()
+        {
+            try
+            {
+                // TC 5.2
+                string className = "WrongNameSpace.MoodAnalyser";
+                string constructorName = "MoodAnalyser";
+                MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
+                object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName);
+            }
+            catch (MoodAnalysisException e)
+            {
+                Assert.AreEqual("class not found", e.Message);
+            }
+        }
+        [TestMethod]
+        public void MoodAnalyserFactoryTestReturnsConstructorNotFoundForParameterizedConstructor()
+        {
+            try
+            {
+                // TC 5.3
+                string className = "MoodAnalyser.MoodAnalyse";
+                string constructorName = "WrongConstructorName";
+                MoodAnalyse expectedObj = new MoodAnalyse("HAPPY");
+                object resultObj = MoodAnalyserFactory.MoodAnalyserObjectParametzisedConstructor(className, constructorName);
+            }
+            catch (MoodAnalysisException e)
+            {
                 Assert.AreEqual("constructor not found", e.Message);
             }
         }
