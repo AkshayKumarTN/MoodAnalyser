@@ -189,5 +189,47 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("no such method", e.Message);
             }
         }
+
+        //********************************************************************************************
+
+        [TestMethod]
+        public void SetFieldReturnsHappy()
+        {
+            // TC 7.1
+            string message = "HAPPY";
+            string fieldName = "moodMessage";
+            string actual = MoodAnalyserFactory.SetField(message, fieldName);
+            Assert.AreEqual("HAPPY", actual);
+        }
+        [TestMethod]
+        public void SetFieldReturnsNoSuchField()
+        {
+            try
+            {
+                // TC 7.2
+                string message = "HAPPY";
+                string fieldName = "wrongName";
+                string actual = MoodAnalyserFactory.SetField(message, fieldName);
+            }
+            catch (MoodAnalysisException e)
+            {
+                Assert.AreEqual("no such field found", e.Message);
+            }
+        }
+        [TestMethod]
+        public void SetFieldReturnsNullMessage()
+        {
+            try
+            {
+                // TC 7.3
+                string message = null;
+                string fieldName = "moodMessage";
+                string actual = MoodAnalyserFactory.SetField(message, fieldName);
+            }
+            catch (MoodAnalysisException e)
+            {
+                Assert.AreEqual("message should not be null", e.Message);
+            }
+        }
     }
 }
